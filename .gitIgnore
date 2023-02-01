@@ -2,3 +2,6 @@
 *.sym
 sudoku_cpp/
 sudoku_js/
+*.pk
+*.ptau
+*.vk

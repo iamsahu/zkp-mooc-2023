@@ -1,18 +1,18 @@
-pragma circom 2.1.2;
+pragma circom 2.0.0;
 
 template NonEqual() {
     signal input in0;
     signal input in1;
     signal inverse;
-    inverse <-- 1/ (in0-in1);
+    inverse <-- 1/ (in0 - in1);
     inverse * (in0 - in1) === 1;
 }
 
 template Distinct(n) {
     signal input in[n];
     component nonEqual[n][n];
-    for(var i =0; i<n;i++){
-        for(var j =0; j<n;j++){
+    for(var i =0; i < n;i++){
+        for(var j =0; j < n;j++){
             nonEqual[i][j] = NonEqual();
             nonEqual[i][j].in0 <== in[i];
             nonEqual[i][j].in1 <== in[j];
@@ -47,17 +47,27 @@ template Sudoku(n) {
     signal input puzzle[n][n];
 
     component inRange[n][n];
-    component distinctRow[n];
+    component distinct[n];
 
     for(var i =0; i < n; i++){
-        distinctRow[i] = Distinct(n);
-        distinctRow[i].in <== solution[i];
-        for(var j =0; j<n;j++){
+        for(var j =0; j < n; j++){
             inRange[i][j] = OneToNine();
             inRange[i][j].in <== solution[i][j];
+        }
+    }
+
+    for( var i =0; i < n; i++){
+        for( var j =0; j < n; j++){
             puzzle[i][j] * (puzzle[i][j] - solution[i][j]) === 0;
-        }    
+        }
+    }
+
+    for( var i = 0; i < n; i++){
+        distinct[i] = Distinct(n);
+        for( var j =0; j < n; j++){
+            distinct[i].in[j] <== solution[i][j];
+        }
     }
 }
 
-component main { public[ puzzle ] }= Sudoku(9);
+component main { public[ puzzle ] } = Sudoku(9);
