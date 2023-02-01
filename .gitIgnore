@@ -1,0 +1,4 @@
+*.r1cs
+*.sym
+sudoku_cpp/
+sudoku_js/
