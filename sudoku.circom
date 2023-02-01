@@ -1,4 +1,4 @@
-pragma circom 2.0.0;
+pragma circom 2.1.2;
 
 template NonEqual() {
     signal input in0;
@@ -50,21 +50,11 @@ template Sudoku(n) {
     component distinct[n];
 
     for(var i =0; i < n; i++){
+        distinct[i] = Distinct(n);
         for(var j =0; j < n; j++){
             inRange[i][j] = OneToNine();
             inRange[i][j].in <== solution[i][j];
-        }
-    }
-
-    for( var i =0; i < n; i++){
-        for( var j =0; j < n; j++){
             puzzle[i][j] * (puzzle[i][j] - solution[i][j]) === 0;
-        }
-    }
-
-    for( var i = 0; i < n; i++){
-        distinct[i] = Distinct(n);
-        for( var j =0; j < n; j++){
             distinct[i].in[j] <== solution[i][j];
         }
     }
