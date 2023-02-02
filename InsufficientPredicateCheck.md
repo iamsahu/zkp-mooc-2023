@@ -7,7 +7,7 @@ template OneToNine()
 {
     signal input in;
     signal out;
-    if (in>=1 && in<=9 ){
+    if (in >= 1 && in <= 9){
        out <-- 1;
     }
     out === 1;

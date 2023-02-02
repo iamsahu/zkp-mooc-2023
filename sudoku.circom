@@ -11,8 +11,8 @@ template NonEqual() {
 template Distinct(n) {
     signal input in[n];
     component nonEqual[n][n];
-    for(var i =0; i < n;i++){
-        for(var j =0; j < n;j++){
+    for(var i =0; i < n; i++){
+        for(var j =0; j < i; j++){
             if(i != j){
                 nonEqual[i][j] = NonEqual();
                 nonEqual[i][j].in0 <== in[i];
@@ -47,7 +47,7 @@ template OneToNine() {
 // The following implementation will work but is not safe
 // it is not safe as it is not checking any predicate over the input in
 // This would allow a malicious prover to generate a proof which will pass the verification by removing the following lines from the code
-// if (in>=1 && in<=9 ){
+// if (in >= 1 && in <= 9 ){
 //    out <-- 1;
 // }
 // That's why it is important to have a template which enforces the predicate on inputs
@@ -55,7 +55,7 @@ template OneToNine() {
 // {
 //     signal input in;
 //     signal out;
-//     if (in>=1 && in<=9 ){
+//     if (in >= 1 && in <= 9 ){
 //        out <-- 1;
 //     }
 //     out === 1;
