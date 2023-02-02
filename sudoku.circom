@@ -70,11 +70,11 @@ template Sudoku(n) {
 
     for(var i =0; i < n; i++){
         distinct[i] = Distinct(n);
+        distinct[i].in <== solution[i];
         for(var j =0; j < n; j++){
             inRange[i][j] = OneToNine();
             inRange[i][j].in <== solution[i][j];
             puzzle[i][j] * (puzzle[i][j] - solution[i][j]) === 0;
-            distinct[i].in[j] <== solution[i][j];
         }
     }
 }
